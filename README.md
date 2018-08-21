@@ -3,4 +3,4 @@ MULTI-seq is a method for single-cell RNA sequencing sample multiplexing (for mo
 
 Here, we provide source code for our sample classification framework. More in-depth documentation / implementation with Seurat to follow...  
 
-![alternativetext](MS.screenshots/Workflow.png)
+![alternativetext](Workflow.png)
