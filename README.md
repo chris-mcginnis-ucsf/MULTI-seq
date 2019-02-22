@@ -6,7 +6,7 @@ Here, we provide source code for two distinct stages of MULTI-seq data processin
 1. FASTQ conversion to a MULTI-seq sample barcode UMI count matrix. Think of this pipeline as 'CellRanger' for sample barcode data, as it (1) Splits raw FASTQs into cell barcode, UMI, and sample barcode sequences, (2) Removes reads that do not align with >1 mismatch to any MULTI-seq sample barcode reference sequence, (3) Removes reads representing duplicated UMIs for each cell, and (4) Convert this parsed read table to a sample barcode UMI count matrix. This count matrix can be used as the input for the MULTI-seq sample classification workflow (discussed below), or alternative classification strategies (Seurat, DemuxEM, etc.)
 
 <p align="center">
-<![alternativetext](/Figures/MULTIseq_Alignment_2.png)>
+![alternativetext](/Figures/MULTIseq_Alignment_2.png)
 </p>
 
 2a. Sample classification. The MULTI-seq sample classification workflow expands on concepts borrowed from Cell-Hashing (Stoeckius et al., 2018) and Perturb-seq (Adamson et al., 2016; Dixit et al., 2016). As in Perturb-Seq, we model the probability density function for each sample barcode UMI distribution using Guassian-kernel density estimation. We then define local maxima corresponding to positive cells for each sample, as well as background cells. We then perform a inter-maxima quantile sweep to find the threshold for each barcode that results in the maximum number of singlet classifications. Using these thresholds, we then classify cells according to the number of barcode thresholds it surpasses (as in Cell Hashing) -- i.e., 0 thresholds = Negative, 1 threshold = Singlet, >1 threshold = Doublet/Multiplet.
