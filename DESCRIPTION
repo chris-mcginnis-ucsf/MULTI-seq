@@ -1,0 +1,10 @@
+Package: deMULTIplex
+Type: Package
+Title: deMULTIplex is a software suite for MULTI-seq sample barcode FASTQ pre-processing and cell barcode classification.
+Version: 0.1.0
+Author: Chris McGinnis
+Maintainer: Chris McGinnis <chris.mcginnis@ucsf.edu>
+Description: 'deMULTIplex' is an R package for analyzing single-cell RNA sequencing data generated with the MULTI-seq sample multiplexing method. Package includes software to (1) Convert raw MULTI-seq sample barcode library FASTQs into a sample barcode UMI count matrix, and (2) Classify cell barcodes into sample barcode groups.    For more information, see our pre-print: https://www.biorxiv.org/content/10.1101/387241v1.
+License: CC-0
+Encoding: UTF-8
+LazyData: true
