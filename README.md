@@ -96,7 +96,8 @@ Remove columns in 'barTable' corresponding to missing barcodes prior to beginnin
 ```R
 ## Round 1 -----------------------------------------------------------------------------------------------------
 ## Perform Quantile Sweep
-bar.table <- bar.table[, good.bars]  # Remove missing bars and summary columns
+bar.table.full <- bar.table[,1:96]
+bar.table <- bar.table.full[, good.bars]  # Remove missing bars and summary columns
 bar.table_sweep.list <- list()
 n <- 0
 for (q in seq(0.01, 0.99, by=0.02)) {
@@ -136,11 +137,38 @@ round2.calls <- classifyCells(bar.table[,1:76], q=findQ(res_round2, extrema_roun
 neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
 
 ## Repeat until all no negative cells remain (usually 3 rounds)...
+final.calls <- c(round3.calls, rep("Negative",length(neg.cells)))
+names(final.calls) <- c(names(round3.calls),neg.cells)
+
 ```
 ![alternativetext](/Figures/Tutorial_final.classification.results.png)
 
 ## Step 4 (optional): Semi-Supervised Negative Cell Reclassification
+```R
+## Perform semi-supervised negative cell reclassification
+reclass.cells <- findReclassCells(bar.table.full, names(final.calls)[which(final.calls=="Negative")])
+reclass.res <- rescueCells(bar.table.full, final.calls, reclass.cells)
+```
+![alternativetext](/Figures/Tutorial_rescue.out.png)
 
+```R
+## Perform semi-supervised negative cell reclassification
+ggplot(reclass.res[-1, ], aes(x=ClassStability, y=MatchRate_mean)) + 
+    geom_point() + xlim(c(nrow(pool.reclass.res)-1,1)) + 
+    ylim(c(0,1.05)) +
+    geom_errorbar(aes(ymin=MatchRate_mean-MatchRate_sd, ymax=MatchRate_mean+MatchRate_sd), width=.1) +
+    geom_hline(yintercept = reclass.res$MatchRate_mean[1], color="red") +
+    geom_hline(yintercept = reclass.res$MatchRate_mean[1]+3*reclass.res$MatchRate_sd[1], color="red",lty=2) +
+    geom_hline(yintercept = reclass.res$MatchRate_mean[1]-3*reclass.res$MatchRate_sd[1], color="red",lty=2)
+```
+![alternativetext](/Figures/Tutorial_match.rate.cs.png)
+
+```R
+## Finalize negative cell rescue results
+final.calls.rescued <- final.calls
+rescue.ind <- which(reclass.cells$ClassStability >= 16) ## Note: Value will be dataset-specific
+final.calls.rescued[rownames(reclass.cells)[rescue.ind]] <- reclass.cells$Reclassification[rescue.ind]
+```
 
 # Referencens
 1. Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Smibert P, Satija R. Cell "hashing" with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. 2017. Preprint. bioRxiv doi: 10.1101/237693.
