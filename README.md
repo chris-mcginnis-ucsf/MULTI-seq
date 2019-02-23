@@ -68,7 +68,7 @@ readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.
 
 ```R
 ## Perform MULTI-seq sample barcode alignment
-barTable <- MULTIseq.align(readTable, cell.id.vec, bar.ref)
+bar.table <- MULTIseq.align(readTable, cell.id.vec, bar.ref)
 ```
 ![alternativetext](/Figures/Tutorial_align.out.png)
 
