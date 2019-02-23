@@ -154,7 +154,7 @@ reclass.res <- rescueCells(bar.table.full, final.calls, reclass.cells)
 ![alternativetext](/Figures/Tutorial_rescue.out.png)
 
 ```R
-## Perform semi-supervised negative cell reclassification
+## Visualize Results
 ggplot(reclass.res[-1, ], aes(x=ClassStability, y=MatchRate_mean)) + 
     geom_point() + xlim(c(nrow(pool.reclass.res)-1,1)) + 
     ylim(c(0,1.05)) +
