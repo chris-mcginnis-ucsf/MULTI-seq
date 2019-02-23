@@ -50,6 +50,15 @@ Broadly, negative cell reclassification uses the initial MULTI-seq sample classi
 ![alternativetext](/Figures/MULTIseq_NegativeCellReclassification.png)
 
 # Tutorial: 96-plex HMEC sample multiplexed scRNA-seq
+## Step 1: MULTI-seq sample barcode pre-processing and alignment
+
+```R
+## Define vectors for reference barcode sequences and cell IDs
+bar.ref <- load("/path/to/BClist.Robj")
+cellIDs <- load("/path/to/cellIDs.Robj")
+```
+
+
 
 # Referencens
 1. Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Smibert P, Satija R. Cell "hashing" with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. 2017. Preprint. bioRxiv doi: 10.1101/237693.
