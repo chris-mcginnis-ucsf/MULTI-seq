@@ -1,11 +1,13 @@
 # deMULTIplex
-deMULTIplex is the companion software for our recently-described method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our preprint: https://www.biorxiv.org/content/early/2018/08/08/387241). MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2018, bioRxiv) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
+deMULTIplex is an R package containing the companion software for our recently-described method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our preprint: https://www.biorxiv.org/content/early/2018/08/08/387241). 
+
+MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2018, bioRxiv) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
 
 ## Installation (in R/Rstudio)
 devtools::install_github('chris-mcginnis-ucsf/MULTI-seq')
 
 ## Dependencies
-DoubletFinder requires the following R packages: 
+deMULTIplex requires the following R packages: 
 * KernSmooth (2.23-15) 
 * reshape2 (1.4.3) 
 * rTSNE (0.15) 
@@ -14,7 +16,7 @@ DoubletFinder requires the following R packages:
 * NOTE: These package versions were used in the bioRxiv paper, but other versions may work, as well.
 
 # deMULTIplex Overview
-## MULTIseq sample barcode FASTQ alignment
+## MULTI-seq sample barcode FASTQ alignment
 R functions found in 'MULTIseq.Align.Suite.R' can be used to convert MULTI-seq sample barcode FASTQ files into a sample barcode UMI count matrix. Think of this pipeline as 'CellRanger' for sample barcode data. This pre-processing pipeline can be split into four distinct steps:
 1. Split raw FASTQs into cell barcode, UMI, and sample barcode sequences associated with a user-defined set of cell barcodes
 2. Remove reads that do not align with >1 mismatch to any MULTI-seq sample barcode reference sequence, 
@@ -25,7 +27,7 @@ R functions found in 'MULTIseq.Align.Suite.R' can be used to convert MULTI-seq s
 
 This sample barcode UMI count matrix can be used as the input for the MULTI-seq sample classification workflow (discussed below), or alternative classification strategies (Seurat, DemuxEM, etc.).
 
-## MULTIseq sample classification workflow
+## MULTI-seq sample classification workflow
 R functions found in 'MULTIseq.Classification.Suite.R' can applied to MULTI-seq sample barcode UMI count matrices to classify cells into sample groups. The MULTI-seq sample classification workflow builds upon concepts borrowed from Cell-Hashing (Stoeckius et al., 2018) and Perturb-seq (Adamson et al., 2016; Dixit et al., 2016) and can be split into five distinct steps:
 1. Model the probability density function for each normalized sample barcode UMI distribution using Gaussian-kernal density estimation (as in Perturb-Seq)
 2. Define local maxima corresponding to positive cells (highest maxima) and background cells (mode)
