@@ -51,13 +51,95 @@ Broadly, negative cell reclassification uses the initial MULTI-seq sample classi
 
 # Tutorial: 96-plex HMEC sample multiplexed scRNA-seq
 ## Step 1: MULTI-seq sample barcode pre-processing and alignment
-
 ```R
 ## Define vectors for reference barcode sequences and cell IDs
 bar.ref <- load("/path/to/BClist.Robj")
-cellIDs <- load("/path/to/cellIDs.Robj")
+cell.id.vec <- load("/path/to/cell.id.vec.Robj")
 ```
+![alternativetext](/Figures/Tutorial_BarRef_CellIDs.png)
 
+```R
+## Pre-process MULTI-seq sample barcode FASTQs
+readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', cellIDs = cell.id.vec)
+```
+![alternativetext](/Figures/Tutorial_preprocess.out.png)
+
+```R
+## Perform MULTI-seq sample barcode alignment
+barTable <- MULTIseq.align(readTable, cell.id.vec, bar.ref)
+```
+![alternativetext](/Figures/Tutorial_align.out.png)
+
+## Step 2: Visually inspect sample barcode quality
+Prior to sample classification, it is important to check that your data includes cells that were successfully labeled with every intended barcode. Missing barcodes will severely impair sample classification performance. Thus, we suggest visually inspecting whether every barcode is enriched in a unique region of barcode space (i.e., as visualized with tSNE).
+
+```R
+## Visualize barcode space
+bar.tsne <- barTSNE(bar.table[,1:96]) 
+## Note: Exclude columns 97:98 (assuming 96 barcodes were used) which provide total barcode UMI counts for each cell. 
+
+pdf("bc.check.pdf")
+for (i in 3:ncol(bar.tsne)) {
+    ggplot(bar.tsne, aes(x = TSNE1, y = TSNE2, color = bar.tsne[,i])) +
+    geom_point() +
+    scale_color_gradient(low = "black", high = "red") +
+    ggtitle(colnames(bar.tsne)[i]) +
+    theme(legend.position = "none") 
+}
+dev.off()
+```
+![alternativetext](/Figures/Tutorial_good.vs.bad.bc.tsnes.png)
+
+Remove columns in 'barTable' corresponding to missing barcodes prior to beginning sample classification.
+
+## Step 3: Sample Classification
+```R
+## Round 1 -----------------------------------------------------------------------------------------------------
+## Perform Quantile Sweep
+bar.table <- bar.table[, good.bars]  # Remove missing bars and summary columns
+bar.table_sweep.list <- list()
+n <- 0
+for (q in seq(0.01, 0.99, by=0.02)) {
+  print(q)
+  n <- n + 1
+  bar.table_sweep.list[[n]] <- classifyCells(data=bar.table, q=q)
+  names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
+}
+
+## Identify ideal inter-maxima quantile to set barcode-specific thresholds
+findThresh(call.list=bar.table_sweep.list, id="round1")
+ggplot(data=res_round1, aes(x=q, y=Proportion, color=Subset)) + geom_line() + theme(legend.position = "none") +
+  geom_vline(xintercept=extrema_round1, lty=2) + scale_color_manual(values=c("red","black","blue"))
+```
+![alternativetext](/Figures/Tutorial_good.qsweep.png)
+
+If this plot does not resemble the visualized distribution above, there may be missing barcodes remaining.
+
+```R
+## Finalize round 1 classifications, remove negative cells
+round1.calls <- classifyCells(bar.table[,1:76], q=findQ(res_round1, extrema_round1))
+neg.cells <- names(round1.calls)[which(round1.calls == "Negative")]
+bar.table <- bar.table[-which(rownames(bar.table) %in% neg.cells), ]
+
+## Round 2 -----------------------------------------------------------------------------------------------------
+bar.table_sweep.list <- list()
+n <- 0
+for (q in seq(0.01, 0.99, by=0.02)) {
+  print(q)
+  n <- n + 1
+  bar.table_sweep.list[[n]] <- classifyCells(data=bar.table, q=q)
+  names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
+}
+
+findThresh(call.list=bar.table_sweep.list, id="round2")
+round2.calls <- classifyCells(bar.table[,1:76], q=findQ(res_round2, extrema_round2))
+neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
+
+## Repeat until all no negative cells remain (usually 3 rounds)...
+```
+![alternativetext](/Figures/Tutorial_final.classification.results.png)
+
+## Step 4 (optional): Semi-Supervised Negative Cell Reclassification
 
 
 # Referencens
