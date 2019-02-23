@@ -4,7 +4,12 @@
 
 \title{ MULTIseq.preProcess }
 
-\description{ 'MULTIseq.preProcess' reads in raw MULTI-seq sample barcode FASTQs and allocates reads into cell barcode, UMI, and sample barcode subsets. R1 reads must exactly match cell IDs provided in whitelist. Species cell barcode from R1 reads 1-16, UMI from R1 reads 17-26, and sample barcode from R2 reads 1-8. This function is a analogous to 'MULTIseq.preProcess_allCells', but is better suited for cell ID vectors representing cell-containing droplets (i.e., 10^4-10^5 total barcodes). }
+\description{ 'MULTIseq.preProcess' reads in raw MULTI-seq sample barcode FASTQs and allocates reads into cell barcode, UMI, and sample barcode subsets. \cr
+
+R1 reads must exactly match cell IDs provided in whitelist. Specifies cell barcode from R1 reads 1-16, UMI from R1 reads 17-26, and sample barcode from R2 reads 1-8. \cr
+
+This function is a analogous to 'MULTIseq.preProcess_allCells', but is better suited for large cell ID vectors (i.e., 10^4-10^5 total barcodes).
+}
 
 \usage{ MULTIseq.preProcess(R1, R2, cellIDs) }
 

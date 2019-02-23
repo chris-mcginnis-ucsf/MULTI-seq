@@ -4,13 +4,12 @@
 
 \title{ findReclassCells }
 
-\description{ 'findReclassCells' has four steps:
-  (1) Normalize MULTI-seq sample barcode UMI count matrix
-  (2) Define positive and background peaks for each barcode distribution PDF
-  (3) Perform a quantile sweep, tracking the number of thresholds each negative cell surpasses
-  at each quantile (i.e., Classification Stability )
-  (4) Define potentially-relcassifiable cells as those surpassing a single threshold at >= 1
-  quantile. }
+\description{ 'findReclassCells' has four steps: \cr
+  (1) Normalize MULTI-seq sample barcode UMI count matrix \cr
+  (2) Define positive and background peaks for each barcode distribution PDF \cr
+  (3) Perform a quantile sweep, tracking the number of thresholds each negative cell surpasses at each quantile (i.e., Classification Stability) \cr
+  (4) Define potentially-relcassifiable cells as those surpassing a single threshold at >= 1 quantile. \cr
+}
 
 \usage{ findReclassCells(barTable, neg.cells) }
 
@@ -28,22 +27,22 @@
 \author{ Chris McGinnis }
 
 \examples{
+  ## Perform semi-supervised reclassification
   ind <- which(final.calls=="Negative")
   reclass.cells <- findReclassCells(barTable, names(final.calls)[ind])
   reclass.res <- rescueCells(barTable, final.calls, reclass.cells)
 
+  ## Visualize k-means match rate x classification stability
   ggplot(reclass.res[-1, ], aes(x=ClassStability, y=MatchRate_mean)) +
     geom_point() +
     xlim(c(nrow(reclass.res)-1,1)) +
     ylim(c(0,1.05)) +
-    geom_errorbar(aes(ymin=MatchRate_mean-MatchRate_sd, ymax=MatchRate_mean+MatchRate_sd),
-      width =.1) +
+    geom_errorbar(aes(ymin=MatchRate_mean-MatchRate_sd, ymax=MatchRate_mean+MatchRate_sd), width =.1) +
     geom_hline(yintercept = reclass.res$MatchRate_mean[1], color="red") +
-    geom_hline(yintercept = reclass.res$MatchRate_mean[1]+3*reclass.res$MatchRate_sd[1],
-      color="red",lty=2) +
-    geom_hline(yintercept = reclass.res$MatchRate_mean[1]-3*reclass.res$MatchRate_sd[1],
-      color="red",lty=2)
+    geom_hline(yintercept = reclass.res$MatchRate_mean[1]+3*reclass.res$MatchRate_sd[1], color="red",lty=2) +
+    geom_hline(yintercept = reclass.res$MatchRate_mean[1]-3*reclass.res$MatchRate_sd[1], color="red",lty=2)
 
+  ## Finalize sample classification results
   final.calls.rescued <- final.calls
   to.rescue <- rownames(reclass.cells)[which(reclass.cells$ClassStability >= 16)]
   final.calls.rescued[to.rescue] <- reclass.cells[rescue.ind,"Reclassification"]

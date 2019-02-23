@@ -4,13 +4,14 @@
 
 \title{ classifyCells }
 
-\description{ 'classifyCells' has four steps:
-  (1) Normalize MULTI-seq sample barcode UMI count matrix
-  (2) Define positive and background peaks for each barcode distribution PDF
-  (3) Set barcode-specific thresholds according to the user-defined inter-maxima quantile
-  (4) Classify cells depending on the number of thresholds each cell surpasses (e.g., 0 thresholds = Negative, 1 = Singlet, >1 = Doublet)
-
-  During the MULTI-seq sample classification workflow, 'classifyCells' is used first to perform a quantile-sweep, enabling the maximiation of pSinglet across all barcodes. The quantile maximizing pSinglet quantile is then used to classify cells into sample groups during each round of the workflow. }
+\description{ 'classifyCells' has four steps: \cr
+  (1) Normalize MULTI-seq sample barcode UMI count matrix \cr
+  (2) Define positive and background peaks for each barcode distribution PDF \cr
+  (3) Set barcode-specific thresholds according to the user-defined inter-maxima quantile \cr
+  (4) Classify cells depending on the number of thresholds each cell surpasses (e.g., 0 thresholds = Negative, 1 = Singlet, >1 = Doublet) \cr
+ \cr
+During the MULTI-seq sample classification workflow, 'classifyCells' is used first to perform a quantile-sweep, enabling the maximiation of pSinglet across all barcodes. The quantile maximizing pSinglet quantile is then used to classify cells into sample groups during each round of the workflow. \cr
+}
 
 \usage{ classifyCells(barTable, q) }
 
@@ -37,6 +38,6 @@
     names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
   }
 
-  findThresh(bar.table_sweep.list, "round1") ## sets res_round1, extrema_round1 to global env
+  findThresh(bar.table_sweep.list, "round1")
   round1.calls <- classifyCells(barTable, q=findQ(res_round1, extrema_round1))
 }
