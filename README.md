@@ -3,6 +3,10 @@ deMULTIplex is an R package containing the companion software for our recently-d
 
 MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2018, bioRxiv) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
 
+![alternativetext](/Figures/MULTIseq.overview.png)
+
+If you want try out MULTI-seq reagents (for free!), fill out this form (https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf.edu; david.patterson@ucsf.edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing and the 10X Genomics 5' sequencing assay. We anticipate that custom-designed sample barcode oligonucleotides We currently supply 'kits' for 12-, 24-, and 96-sample experiments.
+
 ## Installation (in R/Rstudio)
 devtools::install_github('chris-mcginnis-ucsf/MULTI-seq')
 
@@ -23,7 +27,7 @@ R functions found in 'MULTIseq.Align.Suite.R' can be used to convert MULTI-seq s
 3. Remove reads representing duplicated UMIs on a cell-by-cell basis
 4. Convert this parsed read table to a sample barcode UMI count matrix. 
 
-![alternativetext](/Figures/MULTIseq_Alignment_2.png)
+![alternativetext](/Figures/MULTIseq_Alignment.png)
 
 This sample barcode UMI count matrix can be used as the input for the MULTI-seq sample classification workflow (discussed below), or alternative classification strategies (Seurat, DemuxEM, etc.).
 
