@@ -5,7 +5,7 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 
 ![alternativetext](/Figures/MULTIseq.overview.png)
 
-If you want try out MULTI-seq reagents (for free!), fill out this form (https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf.edu; david.patterson@ucsf.edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing and the 10X Genomics 5' sequencing assay. We anticipate that custom-designed sample barcode oligonucleotides We currently supply 'kits' for 12-, 24-, and 96-sample experiments.
+If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf[dot]edu; david.patterson@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing and the 10X Genomics 5' sequencing assay. We anticipate that custom-designed sample barcode oligonucleotides We currently supply 'kits' for 12-, 24-, and 96-sample experiments.
 
 ## Installation (in R/Rstudio)
 devtools::install_github('chris-mcginnis-ucsf/MULTI-seq')
