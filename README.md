@@ -109,7 +109,7 @@ n <- 0
 for (q in seq(0.01, 0.99, by=0.02)) {
   print(q)
   n <- n + 1
-  bar.table_sweep.list[[n]] <- classifyCells(data=bar.table, q=q)
+  bar.table_sweep.list[[n]] <- classifyCells(bar.table, q=q)
   names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
 }
 
@@ -124,7 +124,7 @@ If this plot does not resemble the visualized distribution above, there may be m
 
 ```R
 ## Finalize round 1 classifications, remove negative cells
-round1.calls <- classifyCells(bar.table[,1:76], q=findQ(res_round1, extrema_round1))
+round1.calls <- classifyCells(bar.table, q=findQ(res_round1, extrema_round1))
 neg.cells <- names(round1.calls)[which(round1.calls == "Negative")]
 bar.table <- bar.table[-which(rownames(bar.table) %in% neg.cells), ]
 
@@ -134,17 +134,17 @@ n <- 0
 for (q in seq(0.01, 0.99, by=0.02)) {
   print(q)
   n <- n + 1
-  bar.table_sweep.list[[n]] <- classifyCells(data=bar.table, q=q)
+  bar.table_sweep.list[[n]] <- classifyCells(bar.table, q=q)
   names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
 }
 
 findThresh(call.list=bar.table_sweep.list, id="round2")
-round2.calls <- classifyCells(bar.table[,1:76], q=findQ(res_round2, extrema_round2))
+round2.calls <- classifyCells(bar.table, q=findQ(res_round2, extrema_round2))
 neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
 
 ## Repeat until all no negative cells remain (usually 3 rounds)...
-final.calls <- c(round3.calls, rep("Negative",length(neg.cells)))
-names(final.calls) <- c(names(round3.calls),neg.cells)
+final.calls <- c(round2.calls, rep("Negative",length(neg.cells)))
+names(final.calls) <- c(names(round2.calls),neg.cells)
 
 ```
 ![alternativetext](/Figures/Tutorial_final.classification.results.png)
