@@ -86,11 +86,12 @@ bar.tsne <- barTSNE(bar.table[,1:96])
 
 pdf("bc.check.pdf")
 for (i in 3:ncol(bar.tsne)) {
-    ggplot(bar.tsne, aes(x = TSNE1, y = TSNE2, color = bar.tsne[,i])) +
+    g <- ggplot(bar.tsne, aes(x = TSNE1, y = TSNE2, color = bar.tsne[,i])) +
     geom_point() +
     scale_color_gradient(low = "black", high = "red") +
     ggtitle(colnames(bar.tsne)[i]) +
     theme(legend.position = "none") 
+    print(g)
 }
 dev.off()
 ```
