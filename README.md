@@ -97,7 +97,7 @@ dev.off()
 ```
 ![alternativetext](/Figures/Tutorial_good.vs.bad.bc.tsnes.png)
 
-Remove columns in 'barTable' corresponding to missing barcodes prior to beginning sample classification.
+Remove columns in 'bar.table' corresponding to missing barcodes prior to beginning sample classification.
 
 ## Step 3: Sample Classification
 ```R
