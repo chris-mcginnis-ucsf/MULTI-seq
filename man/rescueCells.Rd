@@ -42,5 +42,5 @@
   ## Finalize sample classification results
   final.calls.rescued <- final.calls
   to.rescue <- rownames(reclass.cells)[which(reclass.cells$ClassStability >= 16)]
-  final.calls.rescued[to.rescue] <- reclass.cells[rescue.ind,"Reclassification"]
+  final.calls.rescued[to.rescue] <- reclass.cells[to.rescue,"Reclassification"]
 }
