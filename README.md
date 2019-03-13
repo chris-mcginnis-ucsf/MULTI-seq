@@ -8,8 +8,8 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf[dot]edu; david.patterson@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply 'kits' for 12, 24, and 96 samples, and can provide guidance about how to order sample barcode plates from IDT for users planning higher-plex experiments. Notably, customized sample barcodes can be ordered from IDT enabling MULTI-seq application for 5' sequencing (10X Genomics) and potentially other, yet-untested assays (e.g., scATAC-seq, scDNA-seq, immune-profiling, etc.).
 
 ## Updates
-deMULTIplex v1.0.1 (03/13/2019)
-Added 'chemistry' arguments to 'MULTIseq.preProcess' and 'MULTIseq.preProcess_allCells' for 10X V2 or V3 chemistry. Argument changes the UMI position specification (e.g., R1 17-26 for V2, R1 17-28 for V3).
+Version 1.0.1 (03/13/2019):
+* Added 'chemistry' arguments to 'MULTIseq.preProcess' and 'MULTIseq.preProcess_allCells' for 10X V2 or V3 chemistry. Argument changes the UMI position specification (e.g., R1 17-26 for V2, R1 17-28 for V3).
 
 ## Installation (in R/Rstudio)
 devtools::install_github('chris-mcginnis-ucsf/MULTI-seq')
