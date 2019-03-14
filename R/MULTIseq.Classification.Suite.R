@@ -92,7 +92,7 @@ findThresh <- function(call.list) {
   colnames(res)[2:4] <- c("Subset","nCells","Proportion")
 
   extrema <- res$q[localMaxima(res$Proportion[which(res$Subset == "pSinglet")])]
-  return(list("extrema" = extrema, "res" = res)
+  return(list("extrema" = extrema, "res" = res))
 }
 
 #################
