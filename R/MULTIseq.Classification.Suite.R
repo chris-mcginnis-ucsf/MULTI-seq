@@ -71,7 +71,7 @@ classifyCells <- function(barTable, q) {
 ################
 ## findThresh ##
 ################
-findThresh <- function(call.list, id) {
+findThresh <- function(call.list) {
   require(reshape2)
 
   res <- as.data.frame(matrix(0L, nrow=length(call.list), ncol=4))
@@ -90,10 +90,9 @@ findThresh <- function(call.list, id) {
   res <- melt(res, id.vars="q")
   res[,4] <- res$value/nCell
   colnames(res)[2:4] <- c("Subset","nCells","Proportion")
-  assign(x=paste("res_",id,sep=""), value=res, envir = .GlobalEnv)
 
   extrema <- res$q[localMaxima(res$Proportion[which(res$Subset == "pSinglet")])]
-  assign(x=paste("extrema_",id,sep=""), value=extrema, envir = .GlobalEnv)
+  return(list("extrema" = extrema, "res" = res)
 }
 
 #################
