@@ -95,6 +95,7 @@ findThresh <- function(call.list) {
   return(list("extrema" = extrema, "res" = res))
 }
 
+
 #################
 ## localMaxima ##
 #################

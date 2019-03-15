@@ -6,16 +6,15 @@
 
 \description{ 'findThresh' summarizes the results of the quantile sweep performed during each round of the MULTI-seq sample classification workflow. Output is used to select the barcode-specific threshold used to classify cells during each round. }
 
-\usage{ findThresh(call.list, id) }
+\usage{ findThresh(call.list) }
 
 \arguments{
-  \item{call.list}{ List of Singlet/Doublet/Negative classifications for each quantile threshold tested during a round of the MULTI-seq sample classification workflow. }
-  \item{id}{ String appended to 'findThresh' outputs. Usually corresponds to sample classification round (e.g., "round1", "round2", "round3", etc.) }
+  \item{call.list}{ List containing the singlet/doublet/negative classifications for each quantile threshold tested during a round of the MULTI-seq sample classification workflow.  }
 }
 
 \details{ Requires the 'reshape2' R package. }
 
-\value{ Sets two objects to the global environment: res_id and extrema_id, where 'id' is set to the 'id' argument (e.g., id="round1 results in res_round1 and extrema_round1 assignments). 'res_id' is a dataframe describing pSinglet, pNegative, and pDoublet across all barcodes at every quantile tested. 'extrema_id' are the local pSinglet maxima which, when maximized, are used to define barcode-specific thresholds prior to sample classification. }
+\value{ Returns a list containing (1) 'res': proportion of cells called as singlets (pSinglet), doublets (pDoublet), and negatives (pNegative) at each quantile tested, and (2) 'extrema': the local maxima for the pSinglet qunatile distribution. }
 
 \references{ Hadley Wickham (2007). Reshaping Data with the reshape Package. Journal of Statistical Software, 21(12), 1-20. }
 
@@ -31,6 +30,6 @@
     names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
   }
 
-  findThresh(bar.table_sweep.list, "round1") ## sets res_round1, extrema_round1 to global env
-  round1.calls <- classifyCells(barTable, q=findQ(res_round1, extrema_round1))
+  threshold.results1 <- findThresh(bar.table_sweep.list)
+  round1.calls <- classifyCells(barTable, q=findQ(threshold.results1$res, threshold.results1$extrema))
 }
