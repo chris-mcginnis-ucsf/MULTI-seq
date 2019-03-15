@@ -119,9 +119,9 @@ for (q in seq(0.01, 0.99, by=0.02)) {
 }
 
 ## Identify ideal inter-maxima quantile to set barcode-specific thresholds
-findThresh(call.list=bar.table_sweep.list, id="round1")
-ggplot(data=res_round1, aes(x=q, y=Proportion, color=Subset)) + geom_line() + theme(legend.position = "none") +
-  geom_vline(xintercept=extrema_round1, lty=2) + scale_color_manual(values=c("red","black","blue"))
+threshold.results1 <- findThresh(call.list=bar.table_sweep.list)
+ggplot(data=threshold.results1$res, aes(x=q, y=Proportion, color=Subset)) + geom_line() + theme(legend.position = "none") +
+  geom_vline(xintercept=threshold.results1$extrema, lty=2) + scale_color_manual(values=c("red","black","blue"))
 ```
 ![alternativetext](/Figures/Tutorial_good.qsweep.png)
 
@@ -129,7 +129,7 @@ If this plot does not resemble the visualized distribution above, there may be m
 
 ```R
 ## Finalize round 1 classifications, remove negative cells
-round1.calls <- classifyCells(bar.table, q=findQ(res_round1, extrema_round1))
+round1.calls <- classifyCells(bar.table, q=findQ(threshold.results1$res, threshold.results1$extrema))
 neg.cells <- names(round1.calls)[which(round1.calls == "Negative")]
 bar.table <- bar.table[-which(rownames(bar.table) %in% neg.cells), ]
 
@@ -143,8 +143,8 @@ for (q in seq(0.01, 0.99, by=0.02)) {
   names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
 }
 
-findThresh(call.list=bar.table_sweep.list, id="round2")
-round2.calls <- classifyCells(bar.table, q=findQ(res_round2, extrema_round2))
+threshold.results2 <- findThresh(call.list=bar.table_sweep.list)
+round2.calls <- classifyCells(bar.table, q=findQ(threshold.results1$res, threshold.results2$extrema))
 neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
 
 ## Repeat until all no negative cells remain (usually 3 rounds)...
