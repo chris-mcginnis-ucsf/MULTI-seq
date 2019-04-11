@@ -144,7 +144,7 @@ for (q in seq(0.01, 0.99, by=0.02)) {
 }
 
 threshold.results2 <- findThresh(call.list=bar.table_sweep.list)
-round2.calls <- classifyCells(bar.table, q=findQ(threshold.results1$res, threshold.results2$extrema))
+round2.calls <- classifyCells(bar.table, q=findQ(threshold.results2$res, threshold.results2$extrema))
 neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
 
 ## Repeat until all no negative cells remain (usually 3 rounds)...
