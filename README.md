@@ -165,7 +165,7 @@ reclass.res <- rescueCells(bar.table.full, final.calls, reclass.cells)
 ```R
 ## Visualize Results
 ggplot(reclass.res[-1, ], aes(x=ClassStability, y=MatchRate_mean)) + 
-    geom_point() + xlim(c(nrow(pool.reclass.res)-1,1)) + 
+    geom_point() + xlim(c(nrow(reclass.res)-1,1)) + 
     ylim(c(0,1.05)) +
     geom_errorbar(aes(ymin=MatchRate_mean-MatchRate_sd, ymax=MatchRate_mean+MatchRate_sd), width=.1) +
     geom_hline(yintercept = reclass.res$MatchRate_mean[1], color="red") +
