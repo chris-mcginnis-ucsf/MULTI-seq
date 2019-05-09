@@ -1,4 +1,3 @@
-
 ###############################################################################################################################
 ## MULTIseq.align aligns barcode reads to a reference in 10000-cell buckets, returning a cellIDs x ref barcode count matrix  ##
 ## 'read.table' is a cellID x 3 dataframe with Cell, UMI, and Sample columns                                                 ##
@@ -80,6 +79,8 @@ MULTIseq.align <- function(readTable, cellIDs, ref) {
   return(bar.table)
 
 }
+
+
 
 ##################################################################################################################################
 ## MULTIseq.align_BD aligns barcode reads to a reference in 10000-cell buckets, returning a cellIDs x ref barcode count matrix  ##
@@ -163,6 +164,8 @@ MULTIseq.align_BD <- function(readTable, cellIDs, ref) {
 
 }
 
+
+
 ##########################################################################################
 ## bucket_cellIDs is an internal function, sets up 10000-member cellID buckets          ##
 ## 'cellIDs' is a character vector of cellIDs desired in the final barcode count matrix ##
@@ -188,6 +191,8 @@ bucket_cellIDs <- function(cellIDs) {
 
 }
 
+
+
 #############################################################################################
 ## bucket_readTable is an internal function, splits read data according to cellID buckets  ##
 ## 'readTable' is a parsed read table, as provided by 'MULTIseq.preProcess'                ##
@@ -207,12 +212,14 @@ bucket_readTable <- function(readTable, cellIDs_bucketed) {
 
 }
 
+
+
 #########################################################################################################
 ## MULTIseq.preProcess reads in raw barcode FASTQs and allocates reads into cell barcode,              ##
 ## UMI, and sample barcode subsets. Function parses FASTQs to only include desired cellIDs             ##
 ## 'R1' is an R1 FASTQ file; 'R2' is an R2 FASTQ file; 'cellIDs' is a character vecotro of cellIDs     ##
 #########################################################################################################
-MULTIseq.preProcess <- function(R1, R2, cellIDs, chemistry = "V3") {
+MULTIseq.preProcess <- function(R1, R2, cellIDs, cell=c(1,16), umi=c(17,28), tag=c(1,8)) {
   require(ShortRead)
 
   print("Reading in R1...")
@@ -224,69 +231,17 @@ MULTIseq.preProcess <- function(R1, R2, cellIDs, chemistry = "V3") {
   gc()
 
   print("Assembling read table...")
-  if (chemistry == "V2") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,26)),
-                       as.data.frame(subseq(sread(r2),1,8)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-    ind <- which(readTable$Cell %in% cellIDs)
-    readTable <- readTable[ind, ]
-    return(readTable)
-  }
+  readTable <- cbind(as.data.frame(subseq(sread(r1),cell[1],cell[2])),
+                     as.data.frame(subseq(sread(r1),umi[1],umi[2])),
+                     as.data.frame(subseq(sread(r2),tag[1],tag[2])))
+  colnames(readTable) <- c("Cell","UMI","Sample")
+  gc()
+  ind <- which(readTable$Cell %in% cellIDs)
+  readTable <- readTable[ind, ]
 
-  if (chemistry == "V3") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,28)),
-                       as.data.frame(subseq(sread(r2),1,8)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-    ind <- which(readTable$Cell %in% cellIDs)
-    readTable <- readTable[ind, ]
-    return(readTable)
-  }
-
+  return(readTable)
 }
 
-#########################################################################################################
-## MULTIseq.preProcess_BD reads in raw HashTag FASTQs and allocates reads into cell barcode,           ##
-## UMI, and sample barcode subsets. Function parses FASTQs to only include desired cellIDs             ##
-## 'R1' is an R1 FASTQ file; 'R2' is an R2 FASTQ file; 'cellIDs' is a character vecotro of cellIDs     ##
-#########################################################################################################
-MULTIseq.preProcess_BD <- function(R1, R2, cellIDs) {
-  require(ShortRead)
-
-  print("Reading in R1...")
-  r1 <- readFastq(R1)
-  gc()
-
-  print("Reading in R2...")
-  r2 <- readFastq(R2)
-  gc()
-
-  print("Assembling read table...")
-  if (chemistry == "V2") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,26)),
-                       as.data.frame(subseq(sread(r2),1,70)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-    ind <- which(readTable$Cell %in% cellIDs)
-    readTable <- readTable[ind, ]
-    return(readTable)
-  }
-
-  if (chemistry == "V3") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,28)),
-                       as.data.frame(subseq(sread(r2),1,70)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-    ind <- which(readTable$Cell %in% cellIDs)
-    readTable <- readTable[ind, ]
-    return(readTable)
-  }
-}
 
 
 #########################################################################################################
@@ -294,7 +249,7 @@ MULTIseq.preProcess_BD <- function(R1, R2, cellIDs) {
 ## UMI, and sample barcode subsets Function buckets data for pre-processing all present barcodes       ##
 ## 'R1' is an R1 FASTQ file; 'R2' is an R2 FASTQ file; 'cellIDs' is the 10X cell barcode whitelist     ##
 #########################################################################################################
-MULTIseq.preProcess_allCells <- function(R1, R2, whitelist, chemistry = "V3") {
+MULTIseq.preProcess_allCells <- function(R1, R2, whitelist, cell=c(1,16), umi=c(17,28), tag=c(1,8)) {
   require(ShortRead)
 
   print("Reading in R1...")
@@ -306,88 +261,11 @@ MULTIseq.preProcess_allCells <- function(R1, R2, whitelist, chemistry = "V3") {
   gc()
 
   print("Assembling read table...")
-  if (chemistry == "V2") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,26)),
-                       as.data.frame(subseq(sread(r2),1,8)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-  }
-
-  if (chemistry == "V3") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,28)),
-                       as.data.frame(subseq(sread(r2),1,8)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-  }
-
-  print("Bucketing cell IDs...")
-  cellIDs_bucketed <- bucket_cellIDs(whitelist)
-
-  ## Initialize logicals for storing present Cell IDs, cell-associated reads
-  present.cells <- logical(length(whitelist))
-  cell.linked.reads <- logical(nrow(readTable))
-
-  ## Iterate through cell ID buckets, finding reads associated with each cell
-  x <- length(cellIDs_bucketed)
-  for (bucket in 1:x) {
-    print(paste("Starting bucket ",bucket,"/",x,sep=""))
-    t0 <- Sys.time()
-    print(Sys.time())
-
-    cellID.counter <- 10000*(bucket-1)
-    cellIDs.temp <- cellIDs_bucketed[[bucket]]
-
-    read.ind <- which(readTable$Cell %in% whitelist)
-    cell.linked.reads[read.ind] <- TRUE
-
-    cell.ind <- which(whitelist %in% readTable$Cell)
-    present.cells[(cell.ind+cellID.counter)] <- TRUE
-  }
-
-  print("Parsing final cell IDs...")
-  cellIDs.parsed <- whitelist[present.cells]
-  assign(x="cellIDs.parsed", value=cellIDs.parsed, envir = .GlobalEnv)
-
-  print("Parsing final read table...")
-  readTable.parsed <- readTable[cell.linked.reads, ]
-  return(readTable.parsed)
-}
-
-#########################################################################################################
-## MULTIseq.preProcess_allCells_BD reads in raw barcode FASTQs and allocates reads into cell barcode,  ##
-## UMI, and sample barcode subsets Function buckets data for pre-processing all present barcodes       ##
-## 'R1' is an R1 FASTQ file; 'R2' is an R2 FASTQ file; 'cellIDs' is the 10X cell barcode whitelist     ##
-#########################################################################################################
-
-MULTIseq.preProcess_allCells_BD <- function(R1, R2, whitelist) {
-  require(ShortRead)
-
-  print("Reading in R1...")
-  r1 <- readFastq(R1)
+  readTable <- cbind(as.data.frame(subseq(sread(r1),cell[1],cell[2])),
+                     as.data.frame(subseq(sread(r1),umi[1],umi[2])),
+                     as.data.frame(subseq(sread(r2),tag[1],tag[2])))
+  colnames(readTable) <- c("Cell","UMI","Sample")
   gc()
-
-  print("Reading in R2...")
-  r2 <- readFastq(R2)
-  gc()
-
-  print("Assembling read table...")
-  if (chemistry == "V2") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,26)),
-                       as.data.frame(subseq(sread(r2),1,70)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-  }
-
-  if (chemistry == "V3") {
-    readTable <- cbind(as.data.frame(subseq(sread(r1),1,16)),
-                       as.data.frame(subseq(sread(r1),17,28)),
-                       as.data.frame(subseq(sread(r2),1,70)))
-    colnames(readTable) <- c("Cell","UMI","Sample")
-    gc()
-  }
 
   print("Bucketing cell IDs...")
   cellIDs_bucketed <- bucket_cellIDs(whitelist)

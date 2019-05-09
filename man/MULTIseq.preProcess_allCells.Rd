@@ -4,20 +4,17 @@
 
 \title{ MULTIseq.preProcess_allCells }
 
-\description{ 'MULTIseq.preProcess_allCells' reads in raw MULTI-seq sample barcode FASTQs and allocates reads into cell barcode, UMI, and sample barcode subsets. \cr
+\description{ 'MULTIseq.preProcess_allCells' reads in raw MULTI-seq sample barcode FASTQs and allocates reads into cell barcode, UMI, and sample barcode subsets. This function is a analogous to 'MULTIseq.preProcess', but is better suited for large cell ID vectors (i.e., ~10^6 total barcodes). }
 
-R1 reads must exactly match cell IDs provided in whitelist. Specifies cell barcode from R1 reads 1-16, UMI from R1 reads 17-26/28 (V2/V3 chemistry), and sample barcode from R2 reads 1-8. \cr
-
-This function is a analogous to 'MULTIseq.preProcess', but is better suited for large cell ID vectors (i.e., ~10^6 total barcodes).
-}
-
-\usage{ MULTIseq.preProcess_allCells(R1, R2, whitelist, chemistry="V3") }
+\usage{ MULTIseq.preProcess_allCells(R1, R2, whitelist, cell=c(1,16), umi=c(17,28), tag=c(1,8)) }
 
 \arguments{
   \item{R1} { Read 1 raw FASTQ file path }
   \item{R2} { Read 2 raw FASTQ file path }
   \item{whitelist} { Cell ID whitelist used to parse R1 FASTQ file  }
-  \item{chemistry} { 10X reagent chemistry, determines UMI sequence position. Set to either "V2" or "V3" }
+  \item{cell} { Numerical vector of length 2 specifying beginning and end position of cell barcode in R1 (Default = 1:16)}
+  \item{umi} { Numerical vector of length 2 specifying beginning and end position of UMI in R1 (Default = 17:28) }
+  \item{tag} { Numerical vector of length 2 specifying beginning and end position of sample tag in R2 (Default = 1:8) }
 }
 
 \details{ Requires 'ShortRead' R package. }
@@ -28,4 +25,4 @@ This function is a analogous to 'MULTIseq.preProcess', but is better suited for 
 
 \author{ Chris McGinnis }
 
-\examples{ readTable <- MULTIseq.preProcess_allCells(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', whitelist = cell.id.vec, chemistry = "V3") }
+\examples{ readTable <- MULTIseq.preProcess_allCells(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', whitelist = cell.id.vec, cell=c(1,16), umi=c(17,28), tag=c(1,8)) }
