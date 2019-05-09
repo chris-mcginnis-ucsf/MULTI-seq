@@ -8,6 +8,9 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf[dot]edu; david.patterson@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply 'kits' for 12, 24, and 96 samples, and can provide guidance about how to order sample barcode plates from IDT for users planning higher-plex experiments. Notably, customized sample barcodes can be ordered from IDT enabling MULTI-seq application for 5' sequencing (10X Genomics) and potentially other, yet-untested assays (e.g., scATAC-seq, scDNA-seq, immune-profiling, etc.).
 
 ## Updates
+Version 1.0.2 (05/09/2019):
+* Replaced 'chemistry' argument in 'MULTIseq.preProcess' and 'MULTIseq.preProcess_allCells' with 'cell', 'umi', and 'tag' arguments for more flexible read parsing (per the suggestion from @omansn). Each argument takes a length-2 numerical vector specifying the beginning and ending positions of the cell barcode (e.g., cell=c(1,16) for 10X), UMI (e.g., umi=c(17,28) for 10X V3 chemistry), and sample tag (e.g., tag=c(1,8) for MULTI-seq). Note: CellID and UMI sequences are assumed to be on R1, while sample tag sequences are assumed to be on R2.
+
 Version 1.0.1 (03/13/2019):
 * Added 'chemistry' arguments to 'MULTIseq.preProcess' and 'MULTIseq.preProcess_allCells' for 10X V2 or V3 chemistry. Argument changes the UMI position specification (e.g., R1 17-26 for V2, R1 17-28 for V3).
 
@@ -70,7 +73,7 @@ cell.id.vec <- load("/path/to/cell.id.vec.Robj")
 
 ```R
 ## Pre-process MULTI-seq sample barcode FASTQs
-readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', cellIDs = cell.id.vec)
+readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', cell=c(1,16), umi=c(17,28), tag=c(1,8))
 ```
 ![alternativetext](/Figures/Tutorial_preprocess.out.png)
 
@@ -101,13 +104,14 @@ dev.off()
 ```
 ![alternativetext](/Figures/Tutorial_good.vs.bad.bc.tsnes.png)
 
-Remove columns in 'bar.table' corresponding to missing barcodes prior to beginning sample classification.
+Remove columns in 'bar.table' corresponding to missing barcodes prior to beginning sample classification. 
 
 ## Step 3: Sample Classification
 ```R
 ## Round 1 -----------------------------------------------------------------------------------------------------
 ## Perform Quantile Sweep
 bar.table.full <- bar.table[,1:96]
+good.bars <- paste("Bar",1:90,sep="")  # NOTE: In this hypothetical example, barcodes 91-96 were not detected
 bar.table <- bar.table.full[, good.bars]  # Remove missing bars and summary columns
 bar.table_sweep.list <- list()
 n <- 0
