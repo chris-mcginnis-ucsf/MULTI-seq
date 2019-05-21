@@ -80,8 +80,6 @@ MULTIseq.align <- function(readTable, cellIDs, ref) {
 
 }
 
-
-
 ##################################################################################################################################
 ## MULTIseq.align_BD aligns barcode reads to a reference in 10000-cell buckets, returning a cellIDs x ref barcode count matrix  ##
 ## 'read.table' is a cellID x 3 dataframe with Cell, UMI, and Sample columns                                                    ##
@@ -164,8 +162,6 @@ MULTIseq.align_BD <- function(readTable, cellIDs, ref) {
 
 }
 
-
-
 ##########################################################################################
 ## bucket_cellIDs is an internal function, sets up 10000-member cellID buckets          ##
 ## 'cellIDs' is a character vector of cellIDs desired in the final barcode count matrix ##
@@ -191,8 +187,6 @@ bucket_cellIDs <- function(cellIDs) {
 
 }
 
-
-
 #############################################################################################
 ## bucket_readTable is an internal function, splits read data according to cellID buckets  ##
 ## 'readTable' is a parsed read table, as provided by 'MULTIseq.preProcess'                ##
@@ -211,8 +205,6 @@ bucket_readTable <- function(readTable, cellIDs_bucketed) {
   return(readTable.list)
 
 }
-
-
 
 #########################################################################################################
 ## MULTIseq.preProcess reads in raw barcode FASTQs and allocates reads into cell barcode,              ##
@@ -241,8 +233,6 @@ MULTIseq.preProcess <- function(R1, R2, cellIDs, cell=c(1,16), umi=c(17,28), tag
 
   return(readTable)
 }
-
-
 
 #########################################################################################################
 ## MULTIseq.preProcess_allCells reads in raw barcode FASTQs and allocates reads into cell barcode,     ##
@@ -300,8 +290,6 @@ MULTIseq.preProcess_allCells <- function(R1, R2, whitelist, cell=c(1,16), umi=c(
   return(readTable.parsed)
 }
 
-
-
 ##############################################################################
 ## 'alignRate' computes the proportion of reads that align to the reference ##
 ##############################################################################
@@ -336,4 +324,3 @@ alignRate <- function(readTable, cellIDs, ref) {
   return(align.rate)
 
 }
-
