@@ -9,12 +9,12 @@
 \usage{ MULTIseq.preProcess(R1, R2, cellIDs, cell=c(1,16), umi=c(17,28), tag=c(1,8)) }
 
 \arguments{
-  \item{R1} { Read 1 raw FASTQ file path }
-  \item{R2} { Read 2 raw FASTQ file path }
-  \item{cellIDs} { Vector of cell IDs used to parse R1 FASTQ file }
-  \item{cell} { Numerical vector of length 2 specifying beginning and end position of cell barcode in R1 (Default = 1:16)}
-  \item{umi} { Numerical vector of length 2 specifying beginning and end position of UMI in R1 (Default = 17:28) }
-  \item{tag} { Numerical vector of length 2 specifying beginning and end position of sample tag in R2 (Default = 1:8) }
+  \item{R1}{ Read 1 raw FASTQ file path }
+  \item{R2}{ Read 2 raw FASTQ file path }
+  \item{cellIDs}{ Vector of cell IDs used to parse R1 FASTQ file }
+  \item{cell}{ Numerical vector of length 2 specifying beginning and end position of cell barcode in R1 (Default = 1:16)}
+  \item{umi}{ Numerical vector of length 2 specifying beginning and end position of UMI in R1 (Default = 17:28) }
+  \item{tag}{ Numerical vector of length 2 specifying beginning and end position of sample tag in R2 (Default = 1:8) }
 }
 
 \details{ Requires 'ShortRead' R package. }
