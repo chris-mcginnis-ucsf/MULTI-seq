@@ -73,7 +73,7 @@ cell.id.vec <- load("/path/to/cell.id.vec.Robj")
 
 ```R
 ## Pre-process MULTI-seq sample barcode FASTQs
-readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', cell=c(1,16), umi=c(17,28), tag=c(1,8))
+readTable <- MULTIseq.preProcess(R1 = '/path/to/R1.fastq.gz', R2 = '/path/to/R2.fastq.gz', cellIDs = cell.id.vec, cell=c(1,16), umi=c(17,28), tag=c(1,8))
 ```
 ![alternativetext](/Figures/Tutorial_preprocess.out.png)
 
