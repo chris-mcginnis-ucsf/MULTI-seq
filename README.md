@@ -1,7 +1,7 @@
-# deMULTIplex
+# deMULTIplex (code written by Chris McGinnis)
 deMULTIplex is an R package containing the companion software for our recently-described method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our Nature Methods manuscript: https://www.ncbi.nlm.nih.gov/pubmed/31209384 ... or our preprint: https://www.biorxiv.org/content/early/2018/08/08/387241). 
 
-MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2018, bioRxiv) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
+MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2019, NBT) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
 
 ![alternativetext](/Figures/MULTIseq.overview.png)
 
