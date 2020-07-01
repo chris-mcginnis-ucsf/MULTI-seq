@@ -8,7 +8,8 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf[dot]edu; david.patterson@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply 'kits' for 12, 24, and 96 samples, and can provide guidance about how to order sample barcode plates from IDT for users planning higher-plex experiments. Notably, customized sample barcodes can be ordered from IDT enabling MULTI-seq application for 5' sequencing (10X Genomics) and potentially other, yet-untested assays (e.g., scATAC-seq, scDNA-seq, immune-profiling, etc.).
 
 Download example dataset for trying deMULTIplex here: https://ucsf.box.com/s/ibo5t6y0a0a3dde68o5xnedjmajsujxk
-NOTE: This 8-donor PBMC experiment is different from the HMEC data used in the tutorial. I opted to upload these data because the HMEC data was quite large.
+
+NOTE: This 8-donor PBMC experiment is different from the HMEC data used in the tutorial. I opted to upload these data because (i) the MULTI-seq barcoding work very well and there were no missing barcodes, (ii) negative-cell reclassification was unncessary because >95% of the cells were classified, and (iii) the files are much smaller. 
 
 ## Updates
 (07/01/2020): Added link to download example dataset -- 8-donor PBMC experiment.
