@@ -1,11 +1,11 @@
 # deMULTIplex (code written by Chris McGinnis)
-deMULTIplex is an R package containing the companion software for our recently-described method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our Nature Methods manuscript: https://www.ncbi.nlm.nih.gov/pubmed/31209384 ... or our preprint: https://www.biorxiv.org/content/early/2018/08/08/387241). 
+deMULTIplex is an R package containing the companion software for our method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our Nature Methods manuscript: https://www.ncbi.nlm.nih.gov/pubmed/31209384)
 
 MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2019, NBT) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
 
 ![alternativetext](/Figures/MULTIseq.overview.png)
 
-If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and send us an email (chris.mcginnis@ucsf[dot]edu; david.patterson@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequnencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply 'kits' for 12, 24, and 96 samples, and can provide guidance about how to order sample barcode plates from IDT for users planning higher-plex experiments. Notably, customized sample barcodes can be ordered from IDT enabling MULTI-seq application for 5' sequencing (10X Genomics) and potentially other, yet-untested assays (e.g., scATAC-seq, scDNA-seq, immune-profiling, etc.).
+If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and/or send me an email (chris.mcginnis@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 3' and 5' 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply LMOs for 96 samples, and MULTI-seq reagents will soon be available commercially from Millipore-Sigma (contact james.hoberg@milliporesigma[dot]com for more info). 
 
 Download example dataset for trying deMULTIplex here: https://ucsf.box.com/s/ibo5t6y0a0a3dde68o5xnedjmajsujxk
 
@@ -191,8 +191,22 @@ rescue.ind <- which(reclass.cells$ClassStability >= 16) ## Note: Value will be d
 final.calls.rescued[rownames(reclass.cells)[rescue.ind]] <- reclass.cells$Reclassification[rescue.ind]
 ```
 
-# Referencens
-1. Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Smibert P, Satija R. Cell "hashing" with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. 2017. Preprint. bioRxiv doi: 10.1101/237693.
-2. Adamson B, Norman TM, Jost M, Cho MY, Nuñez JK, Chen Y, et al. A Multiplexed Single-Cell CRISPR Screening Platform Enables Systematic Dissection of the Unfolded Protein Response. Cell. 2016; 167(7):1867-82.e21.
-3. Dixit A, Parnas O, Li B, Chen J, Fulco CP, Jerby-Arnon L, et al. Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens. Cell. 2016; 167(7):1853-66.e17.
-4. Gaublomme JT, Li B, McCabe C, Knecht A, Drokhlyansky E, Van Wittenberghe N, Waldman J. Nuclei multiplexing with barcoded antibodies for single-nucleus genomics. 2018. Preprint. bioRxiv doi: 10.1101/476036.
+## Other Sample Demultiplexing Methods
+[CITE-Seq Count](https://github.com/Hoohm/CITE-seq-Count)
+[Seurat](https://satijalab.org/seurat/v3.1/hashing_vignette.html)
+[DemuxEM](https://pegasus.readthedocs.io/en/0.x/usage.html?highlight=demuxEM#pegasus-demuxem)
+[Solo](https://github.com/calico/solo)
+[GMM-Demux](https://github.com/CHPGenetics/GMM-demux)
+
+## Referencens
+1.  Stoeckius M, Zheng S, Houck-Loomis B, Hao S, Yeung BZ, Smibert P, Satija R. Cell "hashing" with barcoded antibodies enables multiplexing and doublet detection for single cell genomics. Genome Biology. 2018. 19(1):224.
+
+2.  Adamson B, Norman TM, Jost M, Cho MY, Nuñez JK, Chen Y, et al. A Multiplexed Single-Cell CRISPR Screening Platform Enables Systematic Dissection of the Unfolded Protein Response. Cell. 2016. 167(7):1867-82.e21.
+
+3.  Dixit A, Parnas O, Li B, Chen J, Fulco CP, Jerby-Arnon L, et al. Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens. Cell. 2016. 167(7):1853-66.e17.
+
+4.  Gaublomme JT, Li B, McCabe C, Knecht A, Yang Y, Drokhlyansky E, Van Wittenberghe N, Waldman J, Dionne D, Nguyen L, De Jager PL, Yeung B, Zhao X, Habib N, Rozenblatt-Rosen O, Regev A. Nuclei multiplexing with barcoded antibodies for single-nucleus genomics. 2019. Nature Communications. 10(1):2907.
+
+5.  Bernstein NJ, Fong NL, Lam I, Roy MA, Hendrickson DG, Kelley DR. Solo: Doublet Identification in Single-Cell RNA-Seq via Semi-Supervised Deep Learning. Cell Systems. 2020. S2405-4712(20)30195-2.
+
+6.  Gehring J, Park JH, Chen S, Thomson M, Pachter L. Highly multiplexed single-cell RNA-seq by DNA oligonucleotide tagging of cellular proteins. Nature Biotechnology. 2019. 38(1):35-8.
