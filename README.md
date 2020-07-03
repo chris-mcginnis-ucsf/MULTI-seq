@@ -54,6 +54,8 @@ R functions found in 'MULTIseq.Classification.Suite.R' can applied to MULTI-seq 
 
 ![alternativetext](/Figures/MULTIseq_ClassificationWorkflow.png)
 
+Notably, assigning local maxima to background and positive peaks assumes that the background peak will always be the mode. As one can imagine, this assumption breaks down when (i) you have only 2 samples and/or (ii) one sample is more frequent than the sum of all other sample frequencies. If you believe this is happening in your dataset, I advise either (i) using one of the alternative sample classification algorithms linked below or (ii) manually thresholding your barcode distributions, tracking cells surpassing each manually-set thresheold, and classifying singlets/doublets/negatives as described in step 4.
+
 ## MULTIseq semi-supervised negative-cell reclassification 
 In its current form, MULTI-seq barcoding is an imperfect process that produces a small fraction of cells that cannot be classified into sample groups. These negative cells are of two varieties: True and false negatives. True negatives result from cells with poor barcode labeling. In contrast, false negatives result from algorithmic misclassification. Since a single inter-maxima quantile threshold is applied to all barcodes during sample classification, we believe false negatives arise because this thresholding strategy may be sub-optimal for a subset of barcode distributions. Thus, although false negatives have poor *absolute* signal in comparison to high-confidence singlets, we reasoned that false negatives could be ‘rescued’ by computing the *relative* strength of each barcode signal on a cell-by-cell basis.
 
