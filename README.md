@@ -1,3 +1,6 @@
+~~ Announcement (11/24/21) ~~
+I'm now a postdoc at Stanford and my UCSF email will be decommissioned soon. I also only check my github repos about once per month, so please reach out directly at cmcginni@stanford[dot]edu if you run into any issues. 
+
 # deMULTIplex (code written by Chris McGinnis)
 deMULTIplex is an R package containing the companion software for our method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our Nature Methods manuscript: https://www.ncbi.nlm.nih.gov/pubmed/31209384)
 
@@ -5,7 +8,7 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 
 ![alternativetext](/Figures/MULTIseq.overview.png)
 
-If you want try out MULTI-seq reagents (for free!), fill out [this form](https://docs.google.com/forms/d/1bAzXFEvDEJse_cMvSUe_yDaPrJpAau4IPx8m5pauj3w/edit?ts=5c47a897) and/or send me an email (chris.mcginnis@ucsf[dot]edu). MULTI-seq interfaces with any droplet microlfuidics-based scRNA-seq methodology (e.g., 3' and 5' 10X Genomics, Drop-Seq, In-Drop, Seq-Well, etc.), and is also compatible with single-nucleus RNA-sequencing. MULTI-seq can also be used simultaneously with CITE-seq/REAP-seq/Total-seq for single-cell proteomics. We currently supply LMOs for 96 samples, and MULTI-seq reagents will soon be available commercially from Millipore-Sigma (contact james.hoberg@milliporesigma[dot]com for more info). 
+We have signed an exclusive license with Millipore-Sigma for selling MULTI-seq reagents -- reagents will be available for direct purchase by the beginning of 2022, but you can get early access by reaching out to James Hoberg (james.hoberg@milliporesigma[dot]com). We are still providing LMOs through formal collaborations -- if this route is of interest, please reach out to Zev Gartner directly (zev.gartner@ucsf[dor]com).
 
 Download example dataset for trying deMULTIplex here: https://ucsf.box.com/s/ibo5t6y0a0a3dde68o5xnedjmajsujxk
 
