@@ -1,3 +1,6 @@
+~~ Announcement (12/06/21) ~~
+MULTI-seq reagents are now available for purchase from Millipore-Sigma: https://www.sigmaaldrich.com/US/en/product/sigma/lmo001
+
 ~~ Announcement (11/24/21) ~~
 I'm now a postdoc at Stanford and my UCSF email will be decommissioned soon. I also only check my github repos about once per month, so please reach out directly at cmcginni@stanford[dot]edu if you run into any issues. 
 
