@@ -13,7 +13,7 @@ MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2
 
 We have signed an exclusive license with Millipore-Sigma for selling MULTI-seq reagents -- reagents will be available for direct purchase by the beginning of 2022, but you can get early access by reaching out to James Hoberg (james.hoberg@milliporesigma[dot]com). We are still providing LMOs through formal collaborations -- if this route is of interest, please reach out to Zev Gartner directly (zev.gartner@ucsf[dor]com).
 
-Download example dataset for trying deMULTIplex here: https://ucsf.box.com/s/ibo5t6y0a0a3dde68o5xnedjmajsujxk
+Download example dataset for trying deMULTIplex here: https://stanfordmedicine.box.com/v/deMULTIplexdata
 
 NOTE: This 8-donor PBMC experiment is different from the HMEC data used in the tutorial. I opted to upload these data because (i) the MULTI-seq barcoding work very well and there were no missing barcodes, (ii) negative-cell reclassification was unncessary because >95% of the cells were classified, and (iii) the files are much smaller. 
 
