@@ -4,7 +4,7 @@ MULTI-seq reagents are now available for purchase from Millipore-Sigma: https://
 ~~ Announcement (11/24/21) ~~
 I'm now a postdoc at Stanford and my UCSF email will be decommissioned soon. I also only check my github repos about once per month, so please reach out directly at cmcginni@stanford[dot]edu if you run into any issues. 
 
-# deMULTIplex (code written by Chris McGinnis)
+# deMULTIplex
 deMULTIplex is an R package containing the companion software for our method for single-cell RNA sequencing sample Multiplexing Using Lipid-Tagged Indices: MULTI-seq (for more information, check out our Nature Methods manuscript: https://www.ncbi.nlm.nih.gov/pubmed/31209384)
 
 MULTI-seq is methodologically analogous to the Cell Hashing (Stoeckius et al., 2018, Genome Biology) and Click-Tags (Gehring et al., 2019, NBT) except we utilize lipid- and cholesterol-modified oligonucleotides to rapidly and non-perturbatively label live-cell and nuclear membranes.
